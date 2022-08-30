@@ -1,0 +1,179 @@
+from machine import Pin 
+import utime
+
+led1=Pin(5,Pin.OUT)
+led2=Pin(18,Pin.OUT)
+led3=Pin(19,Pin.OUT)
+led4=Pin(21,Pin.OUT)
+led5=Pin(22,Pin.OUT)
+led6=Pin(23,Pin.OUT)
+led7=Pin(26,Pin.OUT)
+led8=Pin(25,Pin.OUT)
+boton1=Pin(33,Pin.IN,Pin.PULL_UP)
+boton2=Pin(32,Pin.IN,Pin.PULL_UP)
+boton3=Pin(35,Pin.IN,Pin.PULL_UP)
+boton4=Pin(34,Pin.IN,Pin.PULL_UP)
+uno=[led1,led2,led3,led4,led5,led6,led7,led8]
+dos=[led2,led4,led6,led8]
+tres=[led1,led3,led5,led7]
+cuatro=[led1,led2,led5,led6]
+unodos=[led1,led2,led3,led4]
+unotres=[led5,led6,led7,led8]
+unocuatro=[led3,led4,led5,led6]
+dostres=[led3,led4,led7,led8]
+doscuatro=[led1,led2,led3]
+trescuatro=[led6,led7,led8]
+unodostres=[led8,led7,led6,led5,led4,led3]
+dostrescuatro=[led1,led2,led3,led4,led5,led6]
+unotrescuatro=[led1,led2,led3,led4,led5]
+unodoscuatro=[led4,led5,led6,led7,led8]
+unodostrescuatro=[led1,led2,led3,led4,led5,led6,led7,led8]
+cuatrotresdosuno=[led8,led7,led6,led5,led4,led3,led2,led1]
+def unos():
+  for elemento in uno:
+    elemento.value(1)
+    utime.sleep_ms(500)
+    elemento.value(0)
+    utime.sleep(1.0)
+
+def doss():
+  for elemento in dos:
+    elemento.value(1)
+    utime.sleep(1.0)
+    elemento.value(0)
+    utime.sleep(1.0)
+
+def tress():
+  for elemento in tres:
+    elemento.value(1)
+    utime.sleep_ms(50)
+    elemento.value(0)
+    utime.sleep(1.0)
+
+def cuatros():
+  for elemento in cuatro:
+    elemento.value(1)
+    utime.sleep(1.0)
+    elemento.value(0)
+    utime.sleep(1.0)
+    
+def unodoss():
+  for elemento in unodos:
+    elemento.value(1)
+    utime.sleep(1.0)
+    elemento.value(0)
+    utime.sleep(1.0)
+ 
+def unotress():
+  for elemento in unotres:
+    elemento.value(1)
+    utime.sleep(1.0)
+    elemento.value(0)
+    utime.sleep(1.0)
+    
+def unocuatros():
+  for elemento in unocuatro:
+    elemento.value(1)
+    utime.sleep(1.0)
+    elemento.value(0)
+    utime.sleep(1.0)
+    
+def dostress():
+  for elemento in dostres:
+    elemento.value(1)
+    utime.sleep(1.0)
+    elemento.value(0)
+    utime.sleep(1.0)
+    
+def doscuatros():
+  for elemento in doscuatro:
+    elemento.value(1)
+    utime.sleep(1.0)
+    elemento.value(0)
+    utime.sleep(1.0)
+    
+def trescuatros():
+  for elemento in trescuatro:
+    elemento.value(1)
+    utime.sleep(1.0)
+    elemento.value(0)
+    utime.sleep(1.0)
+    
+def unodostress():
+  for elemento in unodostres:
+    elemento.value(1)
+    utime.sleep(1.0)
+    elemento.value(0)
+    utime.sleep(1.0)
+    
+def dostrescuatros():
+  for elemento in dostrescuatro:
+    elemento.value(1)
+    utime.sleep(1.0)
+    elemento.value(0)
+    utime.sleep(1.0)
+    
+def unotrescuatros():
+  for elemento in unotrescuatro:
+    elemento.value(1)
+    utime.sleep(1.0)
+    elemento.value(0)
+    utime.sleep(1.0)
+    
+def unodoscuatros():
+  for elemento in unodoscuatro:
+    elemento.value(1)
+    utime.sleep(1.0)
+    elemento.value(0)
+    utime.sleep(1.0)
+    
+def unodostrescuatros():
+  for elemento in unodostrescuatro:
+    elemento.value(1)
+    utime.sleep(1.0)
+    elemento.value(0)
+    utime.sleep(1.0)
+def cuatrotresdosunos():
+  for elemento in cuatrotresdosuno:
+    elemento.value(1)
+    utime.sleep(1.0)
+    elemento.value(0)
+    utime.sleep(1.0)    
+    
+
+while(True):
+  if(boton1.value()==0):
+   unos()
+   if(boton2.value()==0):
+     doss()
+  else: 
+   if(boton2.value()==0):
+     doss()
+  if(boton3.value()==0):
+    tress()
+  if(boton4.value()==0):
+      cuatros()
+  if(boton1.value()==0)or(boton2.value()==0):
+     unodoss()
+  if(boton1.value()==0)or(boton3.value()==0):
+     unotress()
+  if(boton1.value()==0)or(boton4.value()==0):
+     unocuatros()
+  if(boton2.value()==0)or(boton3.value()==0):
+     dostress()
+  if(boton2.value()==0)or(boton4.value()==0):
+     doscuatros()    
+  if(boton3.value()==0)or(boton4.value()==0):
+     trescuatros()
+  if(boton1.value()==0)or(boton2.value()==0)or(boton3.value()==0):
+     unodostress()
+  if(boton2.value()==0)or(boton3.value()==0)or(boton4.value()==0):
+     dostrescuatros()
+  if(boton1.value()==0)or(boton3.value()==0)or(boton4.value()==0):
+     unotrescuatros()
+  if(boton1.value()==0)or(boton2.value()==0)or(boton4.value()==0):
+     unodoscuatros()
+  if(boton1.value()==0)or(boton2.value()==0)or(boton3.value()==0)or(boton4.value()==0):
+     unodostrescuatros()
+  if(boton4.value()==0)or(boton3.value()==0)or(boton2.value()==0)or(boton1.value()==0):
+     cuatrotresdosunos()    
