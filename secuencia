@@ -13,6 +13,8 @@ boton1=Pin(33,Pin.IN,Pin.PULL_UP)
 boton2=Pin(32,Pin.IN,Pin.PULL_UP)
 boton3=Pin(35,Pin.IN,Pin.PULL_UP)
 boton4=Pin(34,Pin.IN,Pin.PULL_UP)
+velmas=Pin(13,Pin.IN,Pin.PULL_UP)
+velmen=Pin(15,Pin.IN,Pin.PULL_UP)
 uno=[led1,led2,led3,led4,led5,led6,led7,led8]
 dos=[led2,led4,led6,led8]
 tres=[led1,led3,led5,led7]
@@ -29,116 +31,119 @@ unotrescuatro=[led1,led2,led3,led4,led5]
 unodoscuatro=[led4,led5,led6,led7,led8]
 unodostrescuatro=[led1,led2,led3,led4,led5,led6,led7,led8]
 cuatrotresdosuno=[led8,led7,led6,led5,led4,led3,led2,led1]
+tiempo=0.8
+hola=0
+
 def unos():
   for elemento in uno:
     elemento.value(1)
-    utime.sleep_ms(500)
+    utime.sleep_ms(tiempo)
     elemento.value(0)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
 
 def doss():
   for elemento in dos:
     elemento.value(1)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
     elemento.value(0)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
 
 def tress():
   for elemento in tres:
     elemento.value(1)
-    utime.sleep_ms(50)
+    utime.sleep_ms(tiempo)
     elemento.value(0)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
 
 def cuatros():
   for elemento in cuatro:
     elemento.value(1)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
     elemento.value(0)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
     
 def unodoss():
   for elemento in unodos:
     elemento.value(1)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
     elemento.value(0)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
  
 def unotress():
   for elemento in unotres:
     elemento.value(1)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
     elemento.value(0)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
     
 def unocuatros():
   for elemento in unocuatro:
     elemento.value(1)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
     elemento.value(0)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
     
 def dostress():
   for elemento in dostres:
     elemento.value(1)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
     elemento.value(0)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
     
 def doscuatros():
   for elemento in doscuatro:
     elemento.value(1)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
     elemento.value(0)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
     
 def trescuatros():
   for elemento in trescuatro:
     elemento.value(1)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
     elemento.value(0)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
     
 def unodostress():
   for elemento in unodostres:
     elemento.value(1)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
     elemento.value(0)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
     
 def dostrescuatros():
   for elemento in dostrescuatro:
     elemento.value(1)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
     elemento.value(0)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
     
 def unotrescuatros():
   for elemento in unotrescuatro:
     elemento.value(1)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
     elemento.value(0)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
     
 def unodoscuatros():
   for elemento in unodoscuatro:
     elemento.value(1)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
     elemento.value(0)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
     
 def unodostrescuatros():
   for elemento in unodostrescuatro:
     elemento.value(1)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
     elemento.value(0)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
 def cuatrotresdosunos():
   for elemento in cuatrotresdosuno:
     elemento.value(1)
-    utime.sleep(1.0)
+    utime.sleep(tiempo)
     elemento.value(0)
-    utime.sleep(1.0)    
+    utime.sleep(tiempo)    
     
 
 while(True):
@@ -176,4 +181,11 @@ while(True):
   if(boton1.value()==0)or(boton2.value()==0)or(boton3.value()==0)or(boton4.value()==0):
      unodostrescuatros()
   if(boton4.value()==0)or(boton3.value()==0)or(boton2.value()==0)or(boton1.value()==0):
-     cuatrotresdosunos()    
+     cuatrotresdosunos()
+  if velmas.value()==0:
+    tiempo=tiempo-0.2
+    utime.sleep(0.5)
+  else:  
+   if velmen.value()==0:
+     tiempo=tiempo+0.2
+     utime.sleep(0.5)   
