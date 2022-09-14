@@ -1,0 +1,16 @@
+from time import sleep, sleep_ms 
+from machine import Pin as pin
+
+
+
+puel = pin(5, pin.IN, pin.PULL_UP)
+pue2 = pin(22, pin.IN, pin.PULL_UP) 
+pue3 = pin(19, pin.IN, pin.PULL_UP) 
+pue4 = pin (21, pin.IN, pin.PULL_UP)
+led = pin(26,pin.OUT)
+
+while True:
+
+ encendido = puel.value() or pue2.value() or pue3.value() or pue.value()
+ sleep_ms(50)
+ led.value(encendido)
