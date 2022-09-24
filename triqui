@@ -1,0 +1,276 @@
+from machine import Pin as pin,ADC,I2C
+from utime import sleep_ms
+from ssd1306 import SSD1306_I2C, GFX
+import framebuf
+
+sensorx = ADC(pin(32))    
+sensory = ADC(pin(33))    
+sensor_button = pin(35, pin.IN)
+
+sensorx.atten(ADC.ATTN_11DB)   
+sensorx.width(ADC.WIDTH_12BIT) 
+sensory.atten(ADC.ATTN_11DB)   
+sensory.width(ADC.WIDTH_12BIT) 
+
+ancho = 128
+alto = 64
+i2c = I2C(0, scl=pin(22), sda=pin(23))  
+oled = SSD1306_I2C(ancho, alto, i2c)
+gfx = GFX(ancho, alto, oled.pixel)
+
+# print(i2c.scan())
+casx = 9
+casy = 14
+turno = "X"
+intento = 0
+equis = []
+circulos = []
+ganador = False
+J1x = False
+J2o = False
+
+tab1 = False
+tab2 = False
+tab3 = False
+tab4 = False
+tab5 = False
+tab6 = False
+tab7 = False
+tab8 = False
+tab9 = False
+
+tab1x = False
+tab2x = False
+tab3x = False
+tab4x = False
+tab5x = False
+tab6x = False
+tab7x = False
+tab8x = False
+tab9x = False
+
+tab1o = False
+tab2o = False
+tab3o = False
+tab4o = False
+tab5o = False
+tab6o = False
+tab7o = False
+tab8o = False
+tab9o = False
+
+
+def dibujar_x(casx, casy):
+
+  tempX = casx
+  tempY = casy
+  oled.line(tempX, tempY, tempX+30, tempY+10,0)
+  oled.line(tempX+30, tempY, tempX, tempY+10,0)
+def dibujar_o(casx, casy):
+  tempX = casx
+  tempY = casy
+  gfx.circle(casx+15, casy+5, 6, 0)
+def dibujar_tablero():
+  oled.fill(1)
+  oled.text("J1******J2", 23, 02,0)
+  oled.line(44,12,44,58,0)
+  oled.line(84,12,84,58,0)
+  oled.line(5,27,123,27,0)
+  oled.line(5,43,123,43,0)
+
+while True:
+  j=1
+  i=1
+
+  x=sensorx.read()
+  y=sensory.read()
+
+  if ganador == False:
+    dibujar_tablero()
+
+    if turno == "X":
+      gfx.fill_rect(8,1,11,11,0)
+      oled.line(9,2,17,10,1)
+      oled.line(17,2,9,10,1)
+
+    else:
+      oled.line(9,2,17,10,0)
+      oled.line(17,2,9,10,0)
+
+    if turno == "O":
+      gfx.fill_rect(110,1,11,11,0)
+      gfx.circle(115,6,4,1)
+
+    else:
+      gfx.circle(115,6,4,0)
+
+    for element in equis[::2]:
+      dibujar_x(element, equis[j])
+      j=j+2
+
+    for element in circulos[::2]:
+      dibujar_o(element, circulos[i])
+      i=i+2
+    if x>3600:
+      if casx > 9:
+        casx = casx - 40
+      else:
+        casx = casx
+    elif x<150:
+      if 89 > casx:
+        casx = casx + 40
+      else:
+        caSx = casx
+    if y>3600:  
+      if casy > 14:
+        casy = casy - 16
+      else:
+        casy = casy   
+    elif y<150:
+      if 46 > casy:
+        casy = casy + 16
+      else:
+        casy = casy
+
+    if (sensor_button() == 1 and turno == "X"):
+      if (casx == 9 and casy == 14 and tab1 == False):
+        equis.extend([casx, casy])
+        tab1 = True
+        tab1x = True
+        turno = "O"
+        intento = intento+1
+      if (casx == 49 and casy == 14 and tab2 == False):
+        equis.extend([casx, casy])
+        tab2 = True
+        tab2x = True
+        turno = "O"
+        intento = intento+1
+      if (casx == 89 and casy == 14 and tab3 == False):
+        equis.extend([casx, casy])
+        tab3 = True
+        tab3x = True
+        turno = "O"
+        intento = intento+1
+      if (casx == 9 and casy == 30 and tab4 == False):
+        equis.extend([casx, casy])
+        tab4 = True
+        tab4x = True
+        turno = "O"
+        intento = intento+1
+      if (casx == 49 and casy == 30 and tab5 == False):
+        equis.extend([casx, casy])
+        tab5 = True
+        tab5x = True
+        turno = "O"
+        intento = intento+1
+      if (casx == 89 and casy == 30 and tab6 == False):
+        equis.extend([casx, casy])
+        tab6 = True
+        tab6x = True
+        turno = "O"
+        intento = intento+1
+      if (casx == 9 and casy == 46 and tab7 == False):
+        equis.extend([casx, casy])
+        tab7 = True
+        tab7x = True
+        turno = "O"
+        intento = intento+1
+      if (casx == 49 and casy == 46 and tab8 == False):
+        equis.extend([casx, casy])
+        tab8 = True
+        tab8x = True
+        turno = "O"
+        intento = intento+1
+      if (casx == 89 and casy == 46 and tab9 == False):
+        equis.extend([casx, casy])
+        tab9 = True
+        tab9x = True
+        turno = "O"
+        intento = intento+1
+    if (sensor_button() == 1 and turno == "O"): 
+      if (casx == 9 and casy == 14 and tab1 == False):
+        circulos.extend([casx, casy])  
+        tab1 = True
+        tab1o = True
+        turno = "X"
+        intento = intento+1
+      if (casx == 49 and casy == 14 and tab2 == False):
+        circulos.extend([casx, casy])  
+        tab2 = True
+        tab2o = True
+        turno = "X"
+        intento = intento+1
+      if (casx == 89 and casy == 14 and tab3 == False):
+        circulos.extend([casx, casy])  
+        tab3 = True
+        tab3o = True
+        turno = "X"
+        intento = intento+1
+      if (casx == 9 and casy == 30 and tab4 == False):
+        circulos.extend([casx, casy])  
+        tab4 = True
+        tab4o = True
+        turno = "X"
+        intento = intento+1
+      if (casx == 49 and casy == 30 and tab5 == False):
+        circulos.extend([casx, casy])  
+        tab5 = True
+        tab5o = True
+        turno = "X"
+        intento = intento+1
+      if (casx == 89 and casy == 30 and tab6 == False):
+        circulos.extend([casx, casy])  
+        tab6 = True
+        tab6o = True
+        turno = "X"
+        intento = intento+1
+      if (casx == 9 and casy == 46 and tab7 == False):
+        circulos.extend([casx, casy])  
+        tab7 = True
+        tab7o = True
+        turno = "X"
+        intento = intento+1
+      if (casx == 49 and casy == 46 and tab8 == False):
+        circulos.extend([casx, casy])  
+        tab8 = True
+        tab8o = True
+        turno = "X"
+        intento = intento+1
+      if (casx == 89 and casy == 46 and tab9 == False):
+        circulos.extend([casx, casy])  
+        tab9 = True
+        tab9o = True
+        turno = "X"
+        intento = intento+1
+
+
+
+    if ((tab1x and tab2x and tab3x)or(tab3x and tab6x and tab9x)or(tab7x and tab8x and tab9x)or(tab1x and tab4x and tab7x)or(tab1x and tab5x and tab9x)or(tab3x and tab5x and tab7x)or(tab2x and tab5x and tab8x)or(tab4x and tab5x and tab6x)):
+      ganador = True
+      ganador_x = True
+
+    if ((tab1o and tab2o and tab3o)or(tab3o and tab6o and tab9o)or(tab7o and tab8o and tab9o)or(tab1o and tab4o and tab7o)or(tab1o and tab5o and tab9o)or(tab3o and tab5o and tab7o)or(tab2o and tab5o and tab8o)or(tab4o and tab5o and tab6o)):
+      ganador = True
+      ganador_o = True 
+
+  if (sensor_button.value() == 1):
+    print("Presionado")
+
+  if intento == 9:
+      dibujar_tablero()
+      gfx.fill_rect(1,27,127,16,0)
+      oled.text("EMPATE", 41, 30,1)
+
+  if J1x == True:
+      dibujar_tablero()
+      gfx.fill_rect(1,27,127,16,0)
+      oled.text("GANA J1", 41, 30,1)
+
+  if J2o == True:
+      dibujar_tablero()
+      gfx.fill_rect(1,27,127,16,0)
+      oled.text("GANA J2", 41, 30,1)
+      
+  oled.show()
+  sleep_ms(300)
+  oled.fill(0)
