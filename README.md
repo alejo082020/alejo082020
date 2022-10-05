@@ -1,32 +1,42 @@
--from machine import Pin, ADC, PWM
+import machine,esp32,time
+from machine import Pin
+T0 = machine.TouchPad(machine.Pin(4))
+T0.config(600)
+T1 = machine.TouchPad(machine.Pin(15))
+T1.config(600)
+led1 =Pin(23,Pin.OUT)
+led2 =Pin(21,Pin.OUT)
+
+def touch1():
+    if T0.read()<90:
+       led2.value(1)
+    else:
+       led2.value(0)
+def touch2():
+    if T1.read()<90:
+       led1.value(1)
+    else:
+       led1.value(0)
+while True:
+    touch1 ()
+    print("touch 1: ",T1.read())
+    touch2 ()
+    print("touch 2: ",T0.read())
+    time.sleep(0.2)
+    
+from machine import Pin, ADC, PWM
 from utime import sleep_ms
-import machine
-import time
-import esp32
 
-
-buzzer = PWM(Pin(15))
-notas = [391,440,391,554,493,391,440,391,622,554]
-
-led = Pin(4, Pin.OUT)
-led2 = Pin (15, Pin.OUT)
-valor_sensor = esp32.hall_sensor()
-
-touch1 = machine.TouchPad(machine.Pin(15))
-touch1.config(600)
-touch2 = machine.TouchPad(machine.Pin(4))
-touch2.config(600)
-
-def mapeo(valor_sensor, minimo_entrada, maximo_entrada, minimo_salida, maximo_salida):
+def mapear(valor_sensor, minimo_entrada, maximo_entrada, minimo_salida, maximo_salida):
   valor_mapeado = (valor_sensor - minimo_entrada) * (maximo_salida - minimo_salida) / (maximo_entrada - minimo_entrada) + minimo_salida
   return valor_mapeado
 #--------------------------- [OBJETOS]---------------------------------------
-bombillor  = PWM(Pin (13),1000)
-bombillog  = PWM(Pin (10),1000)
-bombillob  = PWM(Pin (10),1000)
-potr = ADC(Pin(35))
-potg = ADC(Pin(32))
-potb = ADC(Pin(33))
+bombillor  = PWM(Pin (26),1000)
+bombillog  = PWM(Pin (25),1000)
+bombillob  = PWM(Pin (33),1000)
+potr = ADC(Pin(13))
+potg = ADC(Pin(12))
+potb = ADC(Pin(14))
 
   
 
@@ -38,26 +48,40 @@ while True:
   bombillob.duty( int (potb.read()/4))
   # bombillo.duty( int (pot.read/4))
   # bombillo.duty_ns( pot.read()*16)
-  sleep_ms(3000)
+  sleep_ms(30)
   
-    #iman
-    #print("efecto hall:")
-    #print(esp32.hall_sensor())
-  mape=mapeo(esp32.hall_sensor(),-200,200,0,1023)
-  mape1=mape<50
-  mape2=mape>1023
-  led.value(mape1)
-  led2.value(mape2)
-    #print("map:",mape)
-    #time.sleep(0.2)
+  
+from machine import Pin
+import utime
+import esp32
+
+led=Pin(21,Pin.OUT)
+led1=Pin(23,Pin.OUT)
+esp32.hall_sensor()
+
+while(True):
+    print(esp32.hall_sensor())
+    if(esp32.hall_sensor()<0):
+        led1.on()
+    else:
+        led.off()
     
-    #touch
-  print(touch1.read())
-  print(touch2.read())
-  led.value(touch1.read())
-  led2.value(touch2.read())
-  time.sleep(0.2)
-   
-  for i in notas:
-    buzzer.freq(i)
-    sleep_ms(650)
+    print(esp32.hall_sensor())
+    if(esp32.hall_sensor()>0):
+        led1.on()
+    else:
+        led1.off()
+        
+import machine,esp32, time
+from machine import Pin
+led=Pin(27,Pin.OUT)
+T0 = machine.TouchPad(machine.Pin(4))
+T0.config(600)
+T1 = machine.TouchPad(machine.Pin(2))
+
+while True:
+    print(T0.read())
+    led.value(T0)      
+    time.sleep(0.2)        
+        
+        
